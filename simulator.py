@@ -9,6 +9,10 @@ class Simulator:
     def learned(card):
         card.learn_progress += 1
 
+    @staticmethod
+    def forgot(card):
+        card.learn_progress = 0
+
 
 class Card:
     def __init__(self):
