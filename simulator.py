@@ -6,10 +6,10 @@ class Simulator:
         pass
 
     @staticmethod
-    def learn(card):
-        card.learn_success = 2
+    def learned(card):
+        card.learn_progress += 1
 
 
 class Card:
     def __init__(self):
-        self.learn_success = 0
+        self.learn_progress = 0
