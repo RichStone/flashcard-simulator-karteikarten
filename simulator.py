@@ -37,14 +37,17 @@ class Simulator:
                     self.days[next_learning_day].append(card)
                 except IndexError:
                     print('not enough calendar places initialized')
+        self.days[current_day].clear()
 
     def print_cards(self):
         for i, day in enumerate(self.days):
-            print('day ' + str(i + 1))
+            print('day ' + str(i))
             for card in day:
                 print(card.id)
 
+
 class Card:
+
     def __init__(self):
-        self.id = uuid1()
+        self.id = id(self)
         self.learn_progress = 0
