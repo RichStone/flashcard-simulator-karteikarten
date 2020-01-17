@@ -31,6 +31,9 @@ class Simulator:
         cards = self.get_cards(current_day)
         for card in cards:
             Simulator.learned(card)
+            if card.learn_progress > 3:
+                # do nothing, the reference will be cleared at the end of the for loop
+                continue
             if card.learn_progress in self.learn_rhythm:
                 try:
                     next_learning_day = current_day + self.learn_rhythm[card.learn_progress]
@@ -38,6 +41,9 @@ class Simulator:
                 except IndexError:
                     print('not enough calendar places initialized')
         self.days[current_day].clear()
+
+    def get_cards_count(self):
+        return sum([len(daily_cards)for daily_cards in self.days])
 
     def print_cards(self):
         for i, day in enumerate(self.days):

@@ -44,12 +44,10 @@ class TestSimulator(unittest.TestCase):
         simulator.learn(current_day=0)
         simulator.learn(current_day=3)
         day_10_cards = simulator.get_cards(day_idx=10)
-        print(day_10_cards)
         first_card_found_in_day_10 = False
         for card in day_10_cards:
             if card.id == first_card.id:
                 first_card_found_in_day_10 = True
-        simulator.print_cards()
         self.assertTrue(first_card_found_in_day_10)
 
     def test_card_removed_from_current_day_after_learning(self):
@@ -57,6 +55,25 @@ class TestSimulator(unittest.TestCase):
         simulator.learn(current_day=0)
         day_0_cards = simulator.get_cards(day_idx=0)
         self.assertListEqual(day_0_cards, [])
+
+    def test_should_count_50_cards_after_init_with_50(self):
+        simulator = Simulator(card_amount=50)
+        self.assertEqual(simulator.get_cards_count(), 50)
+
+    def test_card_will_not_be_learned_anymore(self):
+        # how do you test this in TDD without having to write new redundant
+        # functions that looks up every day to check whether there is the card
+        # or to count all the cards to see if there is one less?
+        simulator = Simulator(card_amount=50)
+        self.assertEqual(simulator.get_cards_count(), 50)
+        simulator.learn(current_day=0)
+        simulator.learn(current_day=3)
+        simulator.learn(current_day=10)
+        simulator.learn(current_day=40)
+        self.assertEqual(simulator.get_cards_count(), 49)
+
+
+
 
 
 if __name__ == '__main__':
