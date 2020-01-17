@@ -18,16 +18,32 @@ class Simulator:
     def forgot(card):
         card.learn_progress = 0
 
-    def get_cards(self, day):
-        return self.days[day - 1]
+    def get_cards(self, day_idx):
+        return self.days[day_idx]
 
     def learn(self, day):
         cards = self.get_cards(day)
         for card in cards:
-            self.days[2].append(card)
+            if card.learn_progress == 0:
+                try:
+                    self.days[day + 3].append(card)
+                except IndexError:
+                    print('not enough calendar places initialized')
+            if card.learn_progress == 1:
+                try:
+                    if self.days[day + 7]:
+                        self.days[day + 7].append(card)
+                except IndexError:
+                    print('not enough calendar places initialized')
+            Simulator.learned(card)
 
+    def print_cards(self):
+        for i, day in enumerate(self.days):
+            print('day ' + str(i + 1))
+            for card in day:
+                print(card.id)
 
 class Card:
     def __init__(self):
-        self.id = uuid1
+        self.id = uuid1()
         self.learn_progress = 0
