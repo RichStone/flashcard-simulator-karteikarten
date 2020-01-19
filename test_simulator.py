@@ -61,9 +61,6 @@ class TestSimulator(unittest.TestCase):
         self.assertEqual(simulator.get_cards_count(), 50)
 
     def test_card_will_not_be_learned_anymore(self):
-        # how do you test this in TDD without having to write new redundant
-        # functions that looks up every day to check whether there is the card
-        # or to count all the cards to see if there is one less?
         simulator = Simulator(card_amount=50)
         self.assertEqual(simulator.get_cards_count(), 50)
         simulator.learn(current_day=0)
@@ -71,10 +68,6 @@ class TestSimulator(unittest.TestCase):
         simulator.learn(current_day=10)
         simulator.learn(current_day=40)
         self.assertEqual(simulator.get_cards_count(), 49)
-
-
-
-
 
 if __name__ == '__main__':
     unittest.main()

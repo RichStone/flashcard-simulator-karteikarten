@@ -1,6 +1,3 @@
-from uuid import uuid1
-
-
 class Simulator:
     def __init__(self, card_amount):
         # days is the 'calendar'
@@ -13,8 +10,10 @@ class Simulator:
             3: 30,
         }
 
-    def simulate(self):
-        pass
+    def simulate(self, days_amount):
+        for i in range(days_amount):
+            self.learn(i)
+        self.print_cards()
 
     @staticmethod
     def learned(card):
@@ -57,3 +56,8 @@ class Card:
     def __init__(self):
         self.id = id(self)
         self.learn_progress = 0
+
+
+if __name__ == '__main__':
+    simulator = Simulator(365)
+    simulator.simulate(days_amount=100)
